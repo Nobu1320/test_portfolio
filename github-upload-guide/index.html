@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>クライアントフォルダ → GitHubリポジトリ 移動手順書</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background: #f7f4f0;
+    color: #333;
+    padding: 24px 16px 60px;
+    max-width: 760px;
+    margin: 0 auto;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  h1 { font-size: 20px; font-weight: 700; color: #222; margin-bottom: 4px; }
+  .subtitle { font-size: 13px; color: #888; margin-bottom: 28px; }
+
+  .overview {
+    background: #fff8f0;
+    border-left: 4px solid #e8956d;
+    border-radius: 6px;
+    padding: 14px 16px;
+    margin-bottom: 28px;
+    font-size: 14px;
+  }
+  .overview strong { color: #e8956d; }
+
+  .step {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    margin-bottom: 24px;
+    overflow: hidden;
+  }
+
+  .step-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 18px;
+    background: #2d2d2d;
+    color: #fff;
+  }
+
+  .step-num {
+    background: #e8956d;
+    color: #fff;
+    font-weight: 700;
+    font-size: 14px;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .step-title { font-weight: 700; font-size: 15px; }
+
+  .step-body { padding: 16px 18px; }
+  .step-body p { margin-bottom: 10px; color: #444; font-size: 14px; }
+
+  ul.arrow-list { list-style: none; padding: 0; margin: 8px 0; }
+  ul.arrow-list li {
+    padding: 5px 0 5px 20px;
+    position: relative;
+    font-size: 14px;
+    color: #444;
+  }
+  ul.arrow-list li::before {
+    content: '▶';
+    position: absolute;
+    left: 0;
+    color: #e8956d;
+    font-size: 11px;
+    top: 7px;
+  }
+
+  .code-box {
+    background: #1e1e2e;
+    color: #cdd6f4;
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    margin: 10px 0;
+    word-break: break-all;
+  }
+
+  .tip {
+    background: #e8f4e8;
+    border-left: 3px solid #5a9a5a;
+    padding: 10px 14px;
+    border-radius: 4px;
+    font-size: 13px;
+    color: #3a6a3a;
+    margin-top: 10px;
+  }
+
+  .warn {
+    background: #fff3e0;
+    border-left: 3px solid #e8956d;
+    padding: 10px 14px;
+    border-radius: 4px;
+    font-size: 13px;
+    color: #7a4a1a;
+    margin-top: 10px;
+  }
+
+  .tag {
+    display: inline-block;
+    background: #e8956d;
+    color: #fff;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 20px;
+    margin-right: 6px;
+    font-weight: 700;
+  }
+
+  /* スクショ */
+  .screenshot {
+    margin: 14px 0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .screenshot img {
+    width: 100%;
+    display: block;
+  }
+  .screenshot-label {
+    background: #f0f0f0;
+    font-size: 12px;
+    color: #666;
+    padding: 5px 12px;
+    border-top: 1px solid #ddd;
+  }
+
+  .screenshots-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 14px 0;
+  }
+
+  .finish {
+    text-align: center;
+    background: #2d2d2d;
+    color: #fff;
+    border-radius: 10px;
+    padding: 28px 20px;
+    margin-top: 32px;
+  }
+  .finish h2 { font-size: 18px; margin-bottom: 8px; }
+  .finish p { font-size: 13px; color: #aaa; line-height: 1.8; }
+</style>
+</head>
+<body>
+
+<h1>📁 クライアントフォルダ移動手順書</h1>
+<p class="subtitle">sonosannのPC → クライアントのGitHubリポジトリ</p>
+
+<div class="overview">
+  <strong>作業の目的：</strong>sonosannのPC（またはNAS）にある <code>[クライアント名]</code> フォルダを、クライアントの GitHub リポジトリにアップロードして GitHub Pages で公開する。
+</div>
+
+<!-- STEP 1 -->
+<div class="step">
+  <div class="step-header">
+    <div class="step-num">1</div>
+    <div class="step-title">クライアントがGitHubリポジトリを作成する</div>
+  </div>
+  <div class="step-body">
+    <p>クライアントのGitHubアカウントで新しいリポジトリを作成します。</p>
+    <ul class="arrow-list">
+      <li>GitHubにログイン → 右上の <strong>＋</strong> → <strong>New repository</strong></li>
+      <li>リポジトリ名を入力（例：<code>my-portfolio</code>）</li>
+      <li>表示設定を <strong>公共（Public）</strong> に設定</li>
+      <li><strong>リポジトリを作成する</strong> ボタンを押す</li>
+    </ul>
+    <div class="screenshots-row">
+      <div class="screenshot">
+        <img src="images/step1a-new-repo.png" alt="リポジトリ作成画面（上部）">
+        <div class="screenshot-label">▲ リポジトリ名・説明を入力</div>
+      </div>
+      <div class="screenshot">
+        <img src="images/step1b-new-repo.png" alt="リポジトリ作成画面（下部）">
+        <div class="screenshot-label">▲ 公共を選択して作成ボタンを押す</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 2 -->
+<div class="step">
+  <div class="step-header">
+    <div class="step-num">2</div>
+    <div class="step-title">リポジトリにフォルダをアップロードする</div>
+  </div>
+  <div class="step-body">
+    <p>作成直後のリポジトリ画面から、ファイルをアップロードします。</p>
+    <ul class="arrow-list">
+      <li>リポジトリ画面中央の <strong>既存のファイルをアップロード</strong>（uploading an existing file）をクリック</li>
+      <li>sonosannから受け取った <code>[クライアント名]</code> フォルダをまるごとドラッグ＆ドロップ</li>
+      <li>下部の <strong>Commit changes</strong> ボタンを押す</li>
+    </ul>
+    <div class="screenshot">
+      <img src="images/step2-repo-top.png" alt="リポジトリトップ画面">
+      <div class="screenshot-label">▲ 中央の青いリンクからアップロード画面へ</div>
+    </div>
+    <div class="warn">⚠️ <code>$教材資料.code-workspace</code> などのVSCodeファイルが混入していたら削除してください。</div>
+  </div>
+</div>
+
+<!-- STEP 3 -->
+<div class="step">
+  <div class="step-header">
+    <div class="step-num">3</div>
+    <div class="step-title">アップロード後のリポジトリを確認する</div>
+  </div>
+  <div class="step-body">
+    <p>アップロード後、リポジトリにフォルダが入っているか確認します。</p>
+    <ul class="arrow-list">
+      <li>リポジトリトップに <code>[クライアント名]</code> フォルダが表示されていればOK</li>
+      <li>フォルダをクリックして <code>index.html</code> と <code>image</code> フォルダが入っているか確認</li>
+    </ul>
+    <div class="screenshot">
+      <img src="images/step3-upload.png" alt="アップロード後のフォルダ確認">
+      <div class="screenshot-label">▲ フォルダ内にindex.htmlとimageフォルダがあればOK</div>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 4 -->
+<div class="step">
+  <div class="step-header">
+    <div class="step-num">4</div>
+    <div class="step-title">GitHub Pages を有効にする</div>
+  </div>
+  <div class="step-body">
+    <p>リポジトリの Settings から GitHub Pages を設定します。</p>
+    <ul class="arrow-list">
+      <li>上部タブ <strong>Settings</strong> をクリック</li>
+      <li>左メニューを下にスクロール → <strong>Pages</strong> をクリック</li>
+      <li><strong>Source</strong> を <code>Deploy from a branch</code> に設定</li>
+      <li><strong>Branch</strong> を <code>main</code> / <code>/ (root)</code> に設定して <strong>Save</strong></li>
+      <li>数分待つと上部に公開URLが緑色で表示される</li>
+    </ul>
+    <div class="screenshots-row">
+      <div class="screenshot">
+        <img src="images/step4a-pages-off.png" alt="Pages設定前">
+        <div class="screenshot-label">▲ 設定前：Branch が None の状態</div>
+      </div>
+      <div class="screenshot">
+        <img src="images/step4b-pages-on.png" alt="Pages設定後">
+        <div class="screenshot-label">▲ 設定後：URLが緑色で表示される</div>
+      </div>
+    </div>
+    <div class="code-box">https://[クライアントのユーザー名].github.io/[リポジトリ名]/[クライアント名]/</div>
+    <div class="tip">✅ URLが表示されたらアクセスして動作確認してください。表示まで数分かかる場合があります。</div>
+  </div>
+</div>
+
+<!-- STEP 5 -->
+<div class="step">
+  <div class="step-header">
+    <div class="step-num">5</div>
+    <div class="step-title">Collaborator（共同編集者）にsonosannを追加する</div>
+  </div>
+  <div class="step-body">
+    <p>クライアントがsonosannをCollaboratorとして招待することで、sonosannがVSCodeから直接プッシュできるようになります。</p>
+    <ul class="arrow-list">
+      <li>Settings → 左メニュー <strong>Collaborators</strong> をクリック</li>
+      <li><strong>Add people</strong> ボタンを押す</li>
+      <li><code>kobayashi4556</code> を入力して検索・選択</li>
+      <li><strong>Add collaborator</strong> を押して招待完了</li>
+      <li>sonosannのメールに招待が届くので <strong>Accept invitation</strong> をクリック</li>
+    </ul>
+    <div class="screenshots-row">
+      <div class="screenshot">
+        <img src="images/step5a-collaborators.png" alt="Collaborators画面">
+        <div class="screenshot-label">▲ Settings → Collaborators の画面</div>
+      </div>
+      <div class="screenshot">
+        <img src="images/step5b-add-people.png" alt="Add people">
+        <div class="screenshot-label">▲ Add people ボタンから招待する</div>
+      </div>
+    </div>
+    <div class="tip">✅ 招待後、sonosannがVSCodeからクライアントのリポジトリにプッシュできるようになります。</div>
+  </div>
+</div>
+
+<!-- STEP 6 -->
+<div class="step">
+  <div class="step-header">
+    <div class="step-num">6</div>
+    <div class="step-title">動作確認・URLをsonosannに報告する</div>
+  </div>
+  <div class="step-body">
+    <p>公開されたURLをブラウザで開いてポートフォリオが正しく表示されるか確認します。</p>
+    <ul class="arrow-list">
+      <li>Settings → Pages に表示されているURLをコピー</li>
+      <li>ブラウザで開いてサイトが表示されることを確認</li>
+      <li>URLをLINEでsonosannに送って報告</li>
+    </ul>
+    <div class="tip">✅ 404エラーが出る場合はGitHub Pagesの反映に時間がかかっています。5分待って再度アクセスしてください。</div>
+  </div>
+</div>
+
+<div class="finish">
+  <h2>🎉 移動・公開完了！</h2>
+  <p>次のステップは<br>クライアントのGoogleアナリティクスID取得<br>→ sonosannがHTMLに貼り付けてプッシュ</p>
+</div>
+
+</body>
+</html>
